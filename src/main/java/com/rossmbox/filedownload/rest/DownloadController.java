@@ -123,6 +123,7 @@ public class DownloadController {
         // This is where the data starts to transfer.
         response.setContentType(mimeType);
         response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=\"" + file.getName());
+        profileCredentialsProvider.close();
 
         return outputStream -> {
             final int BUFFER_SIZE=1000;
