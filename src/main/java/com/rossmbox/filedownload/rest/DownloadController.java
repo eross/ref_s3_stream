@@ -26,18 +26,14 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 @Controller
-public class HelloController {
-    Logger logger = LoggerFactory.getLogger(HelloController.class);
-    @GetMapping("/hello")
-    public String hello(@RequestParam(name = "name", required = false, defaultValue = "World") String name, Model model) {
-        model.addAttribute("name", name);
-        return "hello";
-    }
-
+public class DownloadController {
+    Logger logger = LoggerFactory.getLogger(DownloadController.class);
     private static final String EXTENSION = ".jpg";
     private static final String SERVER_LOCATION = "/server/images";
 
-    @RequestMapping(path = "/slowdownload", method = RequestMethod.GET)
+    // This one will consume 2x the size of the file in memory.  For large files it will break the heap limit.
+    // NOT RECOMMENDED
+    @RequestMapping(path = "/memdownload", method = RequestMethod.GET)
     public ResponseEntity<Resource> download(@RequestParam("image") String image) throws IOException {
         File file = new ClassPathResource(SERVER_LOCATION + File.separator + image).getFile();
 
@@ -58,6 +54,8 @@ public class HelloController {
 
     }
 
+    // This approach reads files in 100 bytes at a time.  The buffer size normally should be longer,
+    // but it was kept small to make it easier to show how the data is broken up.
     @RequestMapping(path = "/download", method = RequestMethod.GET)
     public StreamingResponseBody downloadFile(HttpServletResponse response, @RequestParam("image") String image) throws IOException {
         final int BUFFER_SIZE = 100;
