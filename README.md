@@ -16,4 +16,5 @@ change much.  This can download any file as long as the timeout for downloads is
 
 
 * [download a file from Spring boot rest service](https://stackoverflow.com/questions/35680932/download-a-file-from-spring-boot-rest-service)
+* [Async task executor](https://medium.com/swlh/streaming-data-with-spring-boot-restful-web-service-87522511c071)  
 * [AWS S3 Java SDK Examples](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/examples-s3-objects.html)
